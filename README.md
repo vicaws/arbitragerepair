@@ -1,6 +1,6 @@
 # arbitragerepair
-Python modules and jupyter notebook examples for the paper Detect and Repair
-Arbitrage in Price Data of Traded Options.
+Python modules and jupyter notebook examples for the paper [Detect and Repair
+Arbitrage in Price Data of Traded Options](https://arxiv.org/abs/2008.09454).
 
 ## Repair option price data -- remove arbitrage
 For a finite collection of call option prices written on the same underlying
