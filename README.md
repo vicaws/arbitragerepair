@@ -89,13 +89,21 @@ objective (where bid-ask spreads data need to be supplied):
 >K0, C0 = normaliser.inverse_transform(K1, C1 + epsilon)
 >```
 
-## Why is data cleansing important?
+## Why is repairing arbitrage in price data important?
 
 ### Frequent presence of arbitrage in historical price data
+
+We collect daily close (bid, ask and mid) prices from 1st November, 2007 to 31st May, 
+2018 for OTC FX options from Bloomberg. We count violations of arbitrage constraints 
+in raw daily close mid-prices over time for some major currencies and emerging market 
+(EM) currencies.
 
 ![Screenshot 2020-05-31 at 17 26 36](https://user-images.githubusercontent.com/32545513/83357422-186bda80-a364-11ea-8293-fc1ea9b6faf5.png)
 
 ### Repairing arbitrage can improve robustness of model calibration
+
+We verify that our repair method improves model calibration with more robust parameter 
+estimates and smaller calibration error.
 
 #### Experiment design
 ![Screenshot 2020-07-03 at 16 49 52](https://user-images.githubusercontent.com/32545513/86484098-54bc9d00-bd4d-11ea-8fdb-f01ec9c06b76.png)
@@ -104,14 +112,25 @@ objective (where bid-ask spreads data need to be supplied):
 ![Screenshot 2020-07-03 at 16 44 28](https://user-images.githubusercontent.com/32545513/86483770-a7498980-bd4c-11ea-88b6-137e6d0c4855.png)
 
 ## How do our algorithm and code perform in practice?
+All of the following studies were carried out on a quadcore Intel Core i7-8650U CPU 
+with 32GB RAM. All LPs are solved using the GLPK (GNU Linear Programming Kit) solver 
+wrapped by the [CVXOPT](https://cvxopt.org/) Python package.
 
 ![Screenshot 2020-05-31 at 17 27 11](https://user-images.githubusercontent.com/32545513/83357427-1c97f800-a364-11ea-9f38-bf034ab40952.png)
 
 ## The formation and disappearance of executable arbitrage
 
+We can use the our method on order book data for identifying executable arbitrage. An 
+example is given below. We collect the order book data for all E-mini S&P 500 monthly 
+European call options from 12:00 ET to 16:10 ET on 12th June, 2020. There is a large 
+spike of number of arbitrages at around 15:52 ET, a few minutes before the close of 
+the S&P 500 index market at 16:00 ET. This spike coincided with rallies in the futures 
+market, while the IV maintained its relatively low level.
+
+
 ![Screenshot 2020-08-19 at 14 56 54](https://user-images.githubusercontent.com/32545513/90644137-4c9cbc00-e22c-11ea-9f01-e5525c1a6575.png)
 The formation and disappearance of intra-day executable arbitrage opportunities in the
-E-mini S\&P 500 monthly European call option market on 12th March, 2020.
+E-mini S\&P 500 monthly European call option market on 12th June, 2020.
 ## Citation
 
 >```
