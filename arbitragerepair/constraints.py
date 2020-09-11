@@ -953,9 +953,10 @@ def _constrain_cbs(data_frame, n_quote):
     row_idx = _np.arange(0, n_conds_cbs5)
     mat_A5[row_idx, raw_index[df_cbs['idx_K1'].values]] = coef_C1
     mat_A5[row_idx, raw_index[df_cbs['idx_K2'].values]] = coef_C2
+    mat_A5[row_idx, raw_index[df_cbs['idx_K_star'].values]] = \
+        coef_C_star
 
-    vec_b5 = -df.loc[df_cbs['idx_K_star'].values, 'C'].values * \
-             coef_C_star
+    vec_b5 = _np.zeros(n_conds_cbs5)
 
     del df_cbs, df_cbs_1, df_cbs_2
 
@@ -966,4 +967,3 @@ def _constrain_cbs(data_frame, n_quote):
                   n_conds_cbs4 + n_conds_cbs5 + n_conds_cbs6
 
     return mat_A, vec_b
-
