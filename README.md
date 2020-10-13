@@ -135,7 +135,7 @@ E-mini S\&P 500 monthly European call option market on 12th June, 2020.
 
 >```
 >@misc{arbitragerepair2020,
->    author = {Sam N. Cohen, Christoph Reisinger, Sheng Wang},  
+>    author = {Samuel N. Cohen, Christoph Reisinger, Sheng Wang},  
 >    title = {arbitragerepair},
 >    year = {2020},
 >    howpublished = {\url{https://github.com/vicaws/arbitragerepair}},
