@@ -10,8 +10,6 @@ option prices.
 import numpy as _np
 import pandas as _pd
 
-#_np.seterr(divide='ignore', invalid='ignore')  # these warnings do not matter
-
 
 class Normalise:
     """
@@ -148,109 +146,6 @@ class Normalise:
             raise TypeError("Please ensure legal input arguments! All K, C "
                             "should be 1D numpy.ndarray.")
         return K0, C0
-
-
-def normalise(T, K, C, F, min_price=None):
-    """
-    Normalises and pre-processes data:
-    (1) Normalise K, C by F (C must be undiscounted call prices).
-    (2) Remove NAs and prices that are very close to zero (smaller than the
-    specified min_price).
-    (3) Order the array of prices from short expiry to long expiry, and from
-    small strike to large strike per expiry.
-
-    Parameters
-    ----------
-    T: array_like, 1D
-        The 1D array of time-to-expiries.
-
-    K: array_like, 1D
-        The 1D array of strike prices.
-
-    C: array_like, 1D
-        The 1D array of undiscounted call prices.
-
-    F: array_like, 1D
-        The 1D array of forward prices.
-
-    min_price: optional, float
-        The minimal price of call option that is acceptable. A very low but
-        non-negative price will not stop the repair method working, but may not
-        make financial sense to be included in any study as it is deep OTM.
-
-    Returns
-    -------
-    T1: array_like, 1D
-        The 1D array of time-to-expiries.
-
-    K1: array_like, 1D
-        The 1D array of normalised strike prices.
-
-    C1: array_like, 1D
-        The 1D array of normalised call prices.
-
-    F1: array_like, 1D
-        The 1D array of forward prices.
-
-    """
-
-    try:
-        df = _pd.DataFrame(data={'T': T, 'K': K, 'C': C, 'F': F})
-    except ValueError:
-        raise ValueError("Please ensure legal input arguments! All T, K, C, F "
-                         "should be 1D numeric array.")
-
-    df.sort_values(by=['T', 'K'], inplace=True)
-    T1 = df['T'].values
-    K1 = df['K'].values
-    C1 = df['C'].values
-    F1 = df['F'].values
-
-    # normalise
-    K1 /= F1
-    C1 /= F1
-
-    # remove contracts with NA price
-    if _np.any(_np.isnan(C1)):
-        mask = ~(_np.isnan(C1))
-        T1, K1, C1, F1 = T1[mask], K1[mask], C1[mask], F1[mask]
-
-    # remove contracts whose price is lower than minimum allowed price
-    if min_price is not None:
-        mask = ~(C1 < min_price)
-        T1, K1, C1, F1 = T1[mask], K1[mask], C1[mask], F1[mask]
-
-    return T1, K1, C1, F1
-
-
-def denormalise(K, C, F):
-    """
-    De-normalises data. A reverse process of data normalisation.
-
-    Parameters
-    ----------
-    K: array_like, 1D
-        The 1D array of normalised strike prices.
-
-    C: array_like, 1D
-        The 1D array of normalised call prices.
-
-    F: array_like, 1D
-        The 1D array of forward prices.
-
-    Returns
-    -------
-    K0: array_like, 1D
-        The 1D array of denormalised strike prices.
-
-    C0: array_like, 1D
-        The 1D array of denormalised call prices.
-
-    """
-    K0 = K * F
-    C0 = C * F
-
-    return K0, C0
 
 
 def detect(T, K, C, tolerance=0.0, verbose=False):
@@ -517,8 +412,8 @@ def _constrain_vs(data_frame, n_quote, n_expiry):
         C0 = df[df['T_order'] == T]['C'].values[0]
         vec_b1[i_start] = -1. / K_diff[0] * C0
 
-        mat_A2[k, k] = -1. / K_diff[0]
-        vec_b2[k] = -1. / K_diff[0] * C0
+        mat_A2[k, j_start] = 1. / K_diff[0]
+        vec_b2[k] += 1. / K_diff[0] * C0
 
         i_start += n_K
         j_start += n_K
@@ -963,7 +858,5 @@ def _constrain_cbs(data_frame, n_quote):
     # summarise
     mat_A = _np.vstack((mat_A1, mat_A2, mat_A3, mat_A4, mat_A5, mat_A6))
     vec_b = _np.hstack((vec_b1, vec_b2, vec_b3, vec_b4, vec_b5, vec_b6))
-    n_conds_cbs = n_conds_cbs1 + n_conds_cbs2 + n_conds_cbs3 + \
-                  n_conds_cbs4 + n_conds_cbs5 + n_conds_cbs6
 
     return mat_A, vec_b
