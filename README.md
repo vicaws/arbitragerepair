@@ -2,6 +2,8 @@
 Python modules and jupyter notebook examples for the paper [Detect and Repair
 Arbitrage in Price Data of Traded Options](https://arxiv.org/abs/2008.09454).
 
+[![DOI](https://zenodo.org/badge/288789939.svg)](https://zenodo.org/badge/latestdoi/288789939)
+
 ## Repair option price data -- remove arbitrage
 For a finite collection of call option prices written on the same underlying
 asset, there are six types of constraints that ensure their prices to be
@@ -135,10 +137,12 @@ E-mini S\&P 500 monthly European call option market on 12th June, 2020.
 
 >```
 >@misc{arbitragerepair2020,
->    author = {Samuel N. Cohen, Christoph Reisinger, Sheng Wang},  
+>    author = {Samuel N. Cohen and Christoph Reisinger and Sheng Wang},  
 >    title = {arbitragerepair},
+>    publisher = {GitHub},
+>    journal = {GitHub repository},
 >    year = {2020},
 >    howpublished = {\url{https://github.com/vicaws/arbitragerepair}},
->    note = {commit XXXX}
+>    note = {DOI: 10.5281/zenodo.5338299}
 >}
 >```
