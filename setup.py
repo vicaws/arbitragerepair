@@ -18,7 +18,7 @@ setup(
     ],
     python_requies='>=3.8',
     url='https://github.com/vicaws/arbitragerepair',
-    version='1.0.2',
+    version='1.1.0',
     license='MIT',
     author='Victor Wang',
     author_email='wangsheng.victor@gmail.com',
