@@ -14,25 +14,26 @@ Some examples of arbitrage repair are shown as below:
 
 ![image](https://user-images.githubusercontent.com/32545513/83334755-9666ad80-a2a0-11ea-9910-34137539517b.png)
 
->An arbitrage-free normalised call price surface
-><img src="https://render.githubusercontent.com/render/math?math=(T,k) \mapsto c(T,k)">
->should satisfy some shape constraints. Assuming smooth surface function
-><img src="https://render.githubusercontent.com/render/math?math=c(T,k) \in C^{1,2} (\mathbb{R}_{ %3E 0} \times \mathbb{R}_{\geq 0})">,
->then these shape constraints are
->- Positivity: <img src="https://render.githubusercontent.com/render/math?math=0 \leq c \leq 1">
->- Monotonicity: <img src="https://render.githubusercontent.com/render/math?math=-1\leq\partial c / \partial k \leq 0">, <img src="https://render.githubusercontent.com/render/math?math=\partial c / \partial T \geq 0">
->- Convexity: <img src="https://render.githubusercontent.com/render/math?math=\partial^2 c / \partial^2 k \geq 0">
+An arbitrage-free normalised call price surface
+<img src="https://render.githubusercontent.com/render/math?math=(T,k) \mapsto c(T,k)">
+should satisfy some shape constraints. Assuming smooth surface function
+<img src="https://render.githubusercontent.com/render/math?math=c(T,k) \in C^{1,2} (\mathbb{R}_{ %3E 0} \times \mathbb{R}_{\geq 0})">,
+then these shape constraints are
+- Positivity: <img src="https://render.githubusercontent.com/render/math?math=0 \leq c \leq 1">
+- Monotonicity: <img src="https://render.githubusercontent.com/render/math?math=-1\leq\partial c / \partial k \leq 0">, <img src="https://render.githubusercontent.com/render/math?math=\partial c / \partial T \geq 0">
+- Convexity: <img src="https://render.githubusercontent.com/render/math?math=\partial^2 c / \partial^2 k \geq 0">
 
 ## Code
 
-### Installation of pre-requisites
+### Installation
 
-It is recommended to create a new environment and install pre-requisite
-packages. All packages in requirement.txt are compatible with Python 3.8.x.
+It is recommended to create a new virtual environment and install from pypi.
 
 >```
->pip install -r requirements.txt
+>pip install arbitragerepair
 >```
+
+**Requirements:** ```Python >= 3.8``` and ```CVXOPT >= 1.3.0```.
 
 ### Usage
 
@@ -46,6 +47,10 @@ the usage of this code consists of the following steps.
 >```
 
 **1.** Normalise strikes and call prices
+
+The inputs are four 1D ```numpy.array``` objects ```T, K, C, F```, which should be of the same length, representing 
+time-to-expiries, strike prices, option prices and forward prices. 
+
 >```
 >normaliser = constraints.Normalise()
 >normaliser.fit(T, K, C, F)
