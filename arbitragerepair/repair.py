@@ -141,10 +141,10 @@ def l1ba(mat_A, vec_b, C, spread=None, solver='glpk'):
             delta0 = 1./len(delta_ask) if delta0 > 1./len(delta_ask) else delta0
             delta0 = 1e-8 if delta0 < 1e-8 else delta0
         except ValueError:
-            raise  ValueError('Please ensure that the spread input has legal '
-                              'format! It should contain two arrays/lists, one '
-                              'for bid-reference spread, one for ask-reference '
-                              'spread.')
+            raise ValueError('Please ensure that the spread input has legal '
+                             'format! It should contain two arrays/lists, one '
+                             'for bid-reference spread, one for ask-reference '
+                             'spread.')
 
         # Construct required quantities for the LP
         I = _np.eye(n_quote)
