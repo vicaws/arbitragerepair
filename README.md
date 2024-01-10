@@ -14,14 +14,12 @@ Some examples of arbitrage repair are shown as below:
 
 ![image](https://user-images.githubusercontent.com/32545513/83334755-9666ad80-a2a0-11ea-9910-34137539517b.png)
 
-An arbitrage-free normalised call price surface
-<img src="https://render.githubusercontent.com/render/math?math=(T,k) \mapsto c(T,k)">
-should satisfy some shape constraints. Assuming smooth surface function
-<img src="https://render.githubusercontent.com/render/math?math=c(T,k) \in C^{1,2} (\mathbb{R}_{ %3E 0} \times \mathbb{R}_{\geq 0})">,
+An arbitrage-free normalised call price surface $(T,k) \mapsto c(T,k)$
+should satisfy some shape constraints. Assuming smooth surface function $c(T,k) \in C^{1,2} (\mathbb{R}_{\geq 0}^2)$,
 then these shape constraints are
-- Positivity: <img src="https://render.githubusercontent.com/render/math?math=0 \leq c \leq 1">
-- Monotonicity: <img src="https://render.githubusercontent.com/render/math?math=-1\leq\partial c / \partial k \leq 0">, <img src="https://render.githubusercontent.com/render/math?math=\partial c / \partial T \geq 0">
-- Convexity: <img src="https://render.githubusercontent.com/render/math?math=\partial^2 c / \partial^2 k \geq 0">
+- Positivity: $0 \leq c \leq 1$
+- Monotonicity: $1\leq\partial c / \partial k \leq 0$, $\partial c / \partial T \geq 0$
+- Convexity: $\partial^2 c / \partial^2 k \geq 0$
 
 ## Code
 
